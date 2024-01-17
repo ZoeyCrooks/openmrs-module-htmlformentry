@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="htmlFormEntryService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target" ref="htmlFormEntryServiceImpl"/>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource">
+            <bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+        </property>
+    </bean>
+
+    <bean id="htmlFormEntryServiceImpl" class="org.openmrs.module.htmlformentry.impl.HtmlFormEntryServiceImpl">
+        <property name="dao">
+            <bean class="org.openmrs.module.htmlformentry.db.hibernate.HibernateHtmlFormEntryDAO">
+                <property name="sessionFactory" ref="dbSessionFactory"/>
+            </bean>
+        </property>
+        <property name="handlers">
+            <map>
+                <entry key="obs">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ObsTagHandler"/>
+                </entry>
+                <entry key="controls">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ControlsTagHandler"/>
+                </entry>
+                <entry key="condition">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ConditionTagHandler"/>
+                </entry>
+                <entry key="when">
+                    <bean class="org.openmrs.module.htmlformentry.handler.WhenTagHandler"></bean>
+                </entry>
+                <entry key="encounterProviderAndRole">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EncounterProviderAndRoleTagHandler"/>
+                </entry>
+                <entry key="obsgroup">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ObsGroupTagHandler"/>
+                </entry>
+                <entry key="encounterDate">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EncounterDateHandler"/>
+                </entry>
+                <entry key="encounterProvider">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EncounterProviderHandler"/>
+                </entry>
+                <entry key="encounterLocation">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EncounterLocationHandler"/>
+                </entry>
+                <entry key="encounterVoided">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EncounterVoidHandler"/>
+                </entry>
+                <entry key="enrollInProgram">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EnrollInProgramHandler"/>
+                </entry>
+                <entry key="completeProgram">
+                    <bean class="org.openmrs.module.htmlformentry.handler.CompleteProgramHandler"/>
+                </entry>
+                <entry key="section">
+                    <bean class="org.openmrs.module.htmlformentry.handler.SectionTagHandler"/>
+                </entry>
+                <entry key="lookup">
+                    <bean class="org.openmrs.module.htmlformentry.handler.VelocityHandler"/>
+                </entry>
+                <entry key="submit">
+                    <bean class="org.openmrs.module.htmlformentry.handler.SubmitButtonHandler"/>
+                </entry>
+                <entry key="patient">
+                    <bean class="org.openmrs.module.htmlformentry.handler.PatientTagHandler"/>
+                </entry>
+                <entry key="order">
+                    <bean class="org.openmrs.module.htmlformentry.handler.OrderTagHandler"/>
+                </entry>
+                <entry key="drugOrder">
+                    <bean class="org.openmrs.module.htmlformentry.handler.DrugOrderTagHandler"/>
+                </entry>
+                <entry key="relationship">
+                    <bean class="org.openmrs.module.htmlformentry.handler.RelationshipTagHandler"/>
+                </entry>
+                <entry key="workflowState">
+                    <bean class="org.openmrs.module.htmlformentry.handler.WorkflowStateTagHandler"/>
+                </entry>
+                <entry key="encounterType">
+                    <bean class="org.openmrs.module.htmlformentry.handler.EncounterTypeTagHandler"/>
+                </entry>
+                <entry key="exitFromCare">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ExitFromCareTagHandler"/>
+                </entry>
+                <entry key="ifMode">
+                    <bean class="org.openmrs.module.htmlformentry.handler.IfModeTagHandler"/>
+                </entry>
+                <entry key="includeIf">
+                    <bean class="org.openmrs.module.htmlformentry.handler.IncludeIfTagHandler"/>
+                </entry>
+                <entry key="excludeIf">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ExcludeIfTagHandler"/>
+                </entry>
+                <entry key="redirectOnSave">
+                    <bean class="org.openmrs.module.htmlformentry.handler.RedirectOnSaveTagHandler"/>
+                </entry>
+                <entry key="postSubmissionAction">
+                    <bean class="org.openmrs.module.htmlformentry.handler.PostSubmissionActionTagHandler"/>
+                </entry>
+                <entry key="markPatientDead">
+                    <bean class="org.openmrs.module.htmlformentry.handler.MarkPatientDeadTagHandler"/>
+                </entry>
+                <entry key="immunization">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ImmunizationTagHandler"/>
+                </entry>
+                <entry key="obsreference">
+                    <bean class="org.openmrs.module.htmlformentry.handler.ObsReferenceTagHandler"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+	<!-- Service -->
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.htmlformentry.HtmlFormEntryService</value>
+				<ref bean="htmlFormEntryService"/>
+			</list>
+		</property>
+	</bean>
+	   
+    <bean id="htmlFormValidator" class="org.openmrs.module.htmlformentry.HtmlFormValidator"/>
+    
+    <!-- /Controllers -->
+    
+</beans>

@@ -1,0 +1,12 @@
+<htmlform>
+    Name: <patient field="name"/>
+    
+    Date: <encounterDate/>
+    Encounter Location: <encounterLocation/>
+    Provider: <encounterProvider role="Provider"/>
+
+    Weight: <obs conceptId="5089"/>
+    Allergy: <obs conceptId="80000"/>
+	Allergy Date: <obs conceptId="1119"/>
+    <submit/>
+</htmlform>

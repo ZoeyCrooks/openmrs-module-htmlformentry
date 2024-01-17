@@ -1,0 +1,9 @@
+<htmlform>
+	Date: <encounterDate/>
+	Location: <encounterLocation/>
+	Provider: <encounterProvider role="Provider"/>
+
+	<order orderType="1" />
+
+	<submit/>
+</htmlform>
