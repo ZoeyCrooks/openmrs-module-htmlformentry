@@ -1,4 +1,4 @@
-#!/bin/bash
+#*/bin/bash
 
 function usage() {
 cat <<HELP
@@ -74,3 +74,4 @@ echo ""
 echo "Done"
 echo ""
 echo "View testing report at: file://`pwd`/target/jbehave/view/reports.html"
+ 
