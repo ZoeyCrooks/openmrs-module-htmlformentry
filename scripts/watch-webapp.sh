@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+ #/bin/bash -eu
 
 SRC_DIR=".."
 SERVER_ID=""
@@ -24,7 +24,7 @@ function usage() {
 for i in "$@"
 do
 case $i in
-    --srcDir=*)
+    --srcDir= )
       SRC_DIR="${i#*=}"
       shift # past argument=value
     ;;
@@ -50,3 +50,4 @@ fi
 WEBAPP_DIR="$SRC_DIR/omod/src/main/webapp"
 CP_CMD="cp -R $WEBAPP_DIR/* ~/openmrs/$SERVER_ID/tmp/openmrs/WEB-INF/view/module/htmlformentry/"
 inotify-hookable -w $WEBAPP_DIR --recursive -c "$CP_CMD"
+ 
